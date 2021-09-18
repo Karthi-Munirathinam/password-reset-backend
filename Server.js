@@ -6,6 +6,7 @@ const register = require('./Modules/Register');
 const login = require('./Modules/Login')
 const app = express();
 const authenticate = require('./Modules/Authenticate');
+const forgotpassword = require("./Modules/Forgotpassword");
 
 dotenv.config();
 app.use(express.json());
@@ -33,4 +34,6 @@ app.get('/user', authenticate, (req, res) => {
         userid: req.body.userid
     })
 })
+
+app.post('/forgotpassword', forgotpassword)
 app.listen(PORT, () => console.log(`App is running in http://localhost:${PORT}`))

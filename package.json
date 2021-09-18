@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.2",
+    "nodemailer": "^6.6.3",
     "randomstring": "^1.2.1"
   },
   "devDependencies": {

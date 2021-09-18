@@ -19,13 +19,6 @@ app.use(cors({
 
 const PORT = process.env.PORT || 5000;
 
-
-// app.get('/users', (req, res) => {
-//     let queryname = req.query.name;
-//     console.log(queryname);
-//     res.send(queryname);
-// })
-
 //Create User
 app.post('/register', register)
 //Login

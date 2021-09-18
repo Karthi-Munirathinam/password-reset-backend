@@ -1,5 +1,4 @@
 const express = require("express");
-const mongodb = require('mongodb');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const register = require('./Modules/Register');

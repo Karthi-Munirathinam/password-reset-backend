@@ -19,7 +19,7 @@ const login = async (req, res) => {
             let matchPassword = bcrypt.compareSync(req.body.password, user.password);
             if (matchPassword) {
                 //jwt token
-                let token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
+                let token = jwt.sign({ id: user._id }, process.env.SECRET_KEY)
                 await client.close();
                 res.json({
                     message: "Success",

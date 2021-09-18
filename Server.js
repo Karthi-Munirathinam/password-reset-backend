@@ -5,6 +5,7 @@ const cors = require('cors');
 const register = require('./Modules/Register');
 const login = require('./Modules/Login')
 const app = express();
+const authenticate = require('./Modules/Authenticate');
 
 dotenv.config();
 app.use(express.json());
@@ -26,4 +27,10 @@ app.post('/register', register)
 //Login
 app.post('/login', login)
 
+app.get('/user', authenticate, (req, res) => {
+    res.json({
+        message: "success",
+        userid: req.body.userid
+    })
+})
 app.listen(PORT, () => console.log(`App is running in http://localhost:${PORT}`))

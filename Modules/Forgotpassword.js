@@ -40,7 +40,7 @@ const forgotpassword = async (req, res) => {
                 from: 'no-reply@noreply.com',
                 to: `${req.body.email}`,
                 subject: 'Reset Password - BrandFP',
-                html: `<h4>Hello,</h4><p>We've received a request to reset the password for the AdminFP account. You can reset the password by clicking the link below.</p><link>http://localhost:3000/reset-password?tk=${randomString}</link>`
+                html: `<h4>Hello,</h4><p>We've received a request to reset the password for the AdminFP account. You can reset the password by clicking the link below.</p><link>${process.env.FRONTEND_URL}/reset-password?tk=${randomString}</link>`
             }
             //Send mail
             transporter.sendMail(mailOptions, (err, data) => {
@@ -51,9 +51,11 @@ const forgotpassword = async (req, res) => {
                     console.log('email sent successfully')
                 }
             })
-
+            //Expiring date
+            const expiresin = new Date();
+            expiresin.setHours(expiresin.getHours() + 1);
             //store random string
-            await db.collection('users').findOneAndUpdate({ email: req.body.email }, { $set: { resetPasswordToken: randomString, resetPasswordExpires: new Date() + 3600000 } });
+            await db.collection('users').findOneAndUpdate({ email: req.body.email }, { $set: { resetPasswordToken: randomString, resetPasswordExpires: expiresin } });
             //Close the connection
             await client.close();
             res.json({

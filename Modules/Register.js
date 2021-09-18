@@ -15,17 +15,18 @@ const register = async (req, res) => {
         let db = client.db("FPadmin");
         //Check if user already exists
         let user = await db.collection('users').find({ email: req.body.email }).toArray();
-        if (!user) {
+        console.log(user);
+        if (user.length <= 0) {
             //Select the collection and perform operation
             const salt = bcrypt.genSaltSync(10);
             const hashedpassword = bcrypt.hashSync(req.body.password, salt);
-            const reqdata = {
+
+            let data = await db.collection('users').insertOne({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
                 password: hashedpassword
-            }
-            let data = await db.collection('users').insertOne(reqdata);
+            });
             await client.close();
             res.json({
                 message: "User registered",
